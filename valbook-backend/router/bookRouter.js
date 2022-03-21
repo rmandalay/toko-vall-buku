@@ -15,7 +15,7 @@ const bookRouter = express.Router();
 const { BookController } = require('../Controller/bookController');
 
 // Endpoint : Home
-bookRouter.get('/', bookController.FindAllBooks);
+bookRouter.get('/', BookController.FindAllBooks);
 
 // export module
 module.exports = { bookRouter };

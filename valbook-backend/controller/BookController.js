@@ -7,14 +7,14 @@
 */ 
 
 
-class Controller{
+class BookController{
 
-    static Homepage(req, res) {
+    static FindAllBooks(req, res) {
         res.send('Hello ini dari Books controller');
     }
 
 }
 
 module.exports = {
-    Controller,
+    BookController,
 };

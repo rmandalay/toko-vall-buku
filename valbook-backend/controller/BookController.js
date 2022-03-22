@@ -1,18 +1,25 @@
 'use strict'
 
+const e = require('express');
 /**
  * Class Declaration
- * Module Export Class 
+ * Write Export Class 
+ * Add Model to Controller
  * Mobile Export Class
 */ 
 
+const {Book} = require('../model/Book');
 
 class BookController{
-
     static FindAllBooks(req, res) {
-        res.send('Hello ini dari Books controller');
+        Book.showAllBook((err,data) => {
+            if (err) {
+                console.log('Controller error');
+            } else {
+                console.log('data', data);
+            }
+        })
     }
-
 }
 
 module.exports = {

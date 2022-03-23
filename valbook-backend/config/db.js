@@ -8,7 +8,7 @@ const connectDB = mysql.createConnection({
     user: DBConfig.USER,
     password: DBConfig.PASSWORD,
     database: DBConfig.DB
-})
+});
 
 //
  

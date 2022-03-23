@@ -1,14 +1,14 @@
 'use strict'
 
-const { query } = require('express');
-const { statistics } = require('../config/db');
-/**
- * SQL Init from Config 
- * Class Book Init
+/*
+    * SQL Init from Config 
+    * Class Book Init
 */
 
+// 
 const sql = require('../config/db');
 
+// 
 class Book {
     constructor(ID,book_label,book_title,book_author,book_genre,book_publisher,book_isbn,book_year,book_price,book_stok,created_at,updated_at) 
     {
@@ -25,41 +25,88 @@ class Book {
         this.created_at = created_at;
         this.updated_at = updated_at;
     }
-    
-/**
- * Statik metode
- * ====================
- * liat semua buku
- * liat buku berdasarkan id
- * postingan baru
- * update buku
- * delete buku
-*/
 
-/**
- * SQL Connection
- * Query SQL Command
- * Get Result
- * Change to Object Instance
- * Send to Book Controller
+
+/*
+    * SQL Connection
+    * Query SQL Command
+    * Get Result
+    * Change to Object Instance
+    * Send to Book Controller
 */
 
 
-static showAllBooks(result) {
-    
-    let sqlQuery = `SELECT * FROM book`;
-    sql.query(sqlQuery, (err, res) => {
-        if (err) {
-            console.log('This is Err => /n', err);
-            result(err, null)
-        } else {
+    static showAllBooks(result) {
+        let sqlQuery = `SELECT * FROM book`;
+        sql.query(sqlQuery, (err, res) => {
+            if(err) {
+                console.log('error => ', err);
+                result(err, null);
+            } else {
+                let rawData = res;
+                let books = [];
+                let book;
+                rawData.forEach((eachData) => {
+                    book = new Book(
+                        eachData.ID,
+                        eachData.book_label,
+                        eachData.book_title,
+                        eachData.book_author,
+                        eachData.book_genre,
+                        eachData.book_publisher,
+                        eachData.book_isbn,
+                        eachData.book_year,
+                        eachData.book_price,
+                        eachData.book_stok,
+                        eachData.created_at,
+                        eachData.updated_at
+                );
+                books.push(book);
+            });
+
             console.log('result', res);
-            result(null, res);
+            result(null, books);
         }
     });
+}
+            
+
+    static showBookById(id, result) {
+        let sqlQuery = `SELECT * FROM book where ID = ${id}`;
+
+        sql.query(sqlQuery, (err, res) => {
+            if(err) {
+                console.log('error =>, err');
+                result(err,null);
+            } else {
+                let rawData = res;
+                let books = [];
+                let book;
+                rawData.forEach((eachData) => {
+                    book = new Book(
+                        eachData.ID,
+                        eachData.book_label,
+                        eachData.book_title,
+                        eachData.book_author,
+                        eachData.book_genre,
+                        eachData.book_publisher,
+                        eachData.book_isbn,
+                        eachData.book_year,
+                        eachData.book_price,
+                        eachData.book_stok,
+                        eachData.created_at,
+                        eachData.updated_at
+                    );
+                    books.push(book);
+                });
+                console.log('result', res);
+                result(null, books);
+            }
+        });
     }
+
 }
 
 module.exports = {
-    Book
+    Book,
 }

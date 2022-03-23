@@ -17,5 +17,9 @@ const { BookController } = require('../Controller/bookController');
 // Endpoint : Home
 bookRouter.get('/', BookController.FindAllBooks);
 
+// 
+bookRouter.get('/:id', BookController.FindAllBooksById);
+
+
 // export module
-module.exports = { bookRouter };
+module.exports = {bookRouter};
